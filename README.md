@@ -11,7 +11,9 @@ Exam1.1: Q-learning(openAI gym + FrozenLake-v0)
 
 Exam1.2: Q-learning(pandas + 1D Treasure)
 
-Exam2: DQN(openAI-gym)
+Exam2.1: DQN(openAI-gym + CartPole)
+
+Exam2.2: DQN(tensorflow 1.0.0 + tkinter + python 3.5)
 
 Exam3: A3C(openAI-Universe)
 
