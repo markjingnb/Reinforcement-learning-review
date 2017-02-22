@@ -1,5 +1,7 @@
 import gym
 import numpy as np
+import time
+
 env = gym.make('FrozenLake-v0')
 #Initialize table with all zeros
 Q = np.zeros([env.observation_space.n,env.action_space.n])
@@ -7,6 +9,8 @@ Q = np.zeros([env.observation_space.n,env.action_space.n])
 lr = .85
 y = .99
 num_episodes = 2000
+FRESH_TIME = 1
+
 #create lists to contain total rewards and steps per episode
 #jList = []
 rList = []
@@ -17,16 +21,22 @@ for i in range(num_episodes):
     d = False
     j = 0
     #The Q-Table learning algorithm
-    while j < 99:
+    while j < 299:
+        env.render()
+        print "states=",s
         j+=1
         #Choose an action by greedily (with noise) picking from Q table
         a = np.argmax(Q[s,:] + np.random.randn(1,env.action_space.n)*(1./(i+1)))
+	print "action=",a
         #Get new state and reward from environment
         s1,r,d,_ = env.step(a)
         #Update Q-Table with new knowledge
         Q[s,a] = Q[s,a] + lr*(r + y*np.max(Q[s1,:]) - Q[s,a])
         rAll += r
         s = s1
+        print "new states=",s
+        #env.render()
+	time.sleep(FRESH_TIME)#print s,a
         if d == True:
             break
     #jList.append(j)
@@ -34,4 +44,3 @@ for i in range(num_episodes):
 print ("Score over time: " +  str(sum(rList)/num_episodes))
 print ("Final Q-Table Values")
 print (Q)
-
